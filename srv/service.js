@@ -7,7 +7,7 @@ module.exports = async function () {
 
 
     // Vihaan Entities-------------------------------------------->
-    const { supplierReqSrv, SavingsupplierReqSrv, SReqattachmentsSrv} = this.entities;
+    const { supplierReqSrv, SavingsupplierReqSrv, SReqattachmentsSrv } = this.entities;
 
     const GstApi = await cds.connect.to('GstApi');
 
@@ -17,7 +17,7 @@ module.exports = async function () {
     // request atttachments
     this.before('CREATE', supplierReqSrv, BeforeSupReqFun);
     this.before('CREATE', SavingsupplierReqSrv, BeforeSavingSupReqFun);
-    this.on('CREATE', SavingsupplierReqSrv,OnSavingSupReqFun)
+    this.on('CREATE', SavingsupplierReqSrv, OnSavingSupReqFun)
     this.after('CREATE', supplierReqSrv, AfterSupReqFun);
 
     this.on('getStatus', onGSTValidation);
@@ -96,11 +96,11 @@ module.exports = async function () {
 
     };
 
-    async function OnSavingSupReqFun(req,res){
+    async function OnSavingSupReqFun(req, res) {
         console.log(req.data);
-        req.data.Status='DRAFT'
+        req.data.Status = 'DRAFT'
         console.log(req.data);
-         await cds.tx(req).run([
+        await cds.tx(req).run([
             INSERT.into(SavingsupplierReqSrv).entries(req.data)
 
         ]).then((resolve, reject) => {
@@ -236,4 +236,6 @@ async function ValCheck(DigressionVendorCodeVal, GSTIN, PANCardNo, req) {
     }
 }
 
-//test
+
+
+//sumit
